@@ -17,3 +17,11 @@ frontend.py so that it can be easily stripped ») : sans lui, l'étape DVC du co
 notification DVC sont simplement ignorées. Le reste du code est identique à l'upstream.
 
 Pour l'affichage de la carte, utiliser PiotrMachowski/lovelace-xiaomi-vacuum-map-card.
+
+## Mise à jour automatique
+
+Le workflow `.github/workflows/sync-upstream.yml` vérifie chaque jour la dernière release
+stable de Tasshack. Pour une nouvelle version `vX.Y.Z`, il reconstruit la branche `nexk` sur
+ce tag, applique `.github/scripts/strip_dvc.py` et publie la release `vX.Y.Z.1`. Si la
+structure upstream change (frontend.py n'est plus optionnel, code DVC ailleurs…), le script
+échoue et rien n'est publié : GitHub envoie alors un e-mail d'échec du workflow.
